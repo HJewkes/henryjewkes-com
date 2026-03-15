@@ -1,0 +1,5 @@
+node_modules
+dist
+.brain
+*.local
+.DS_Store
