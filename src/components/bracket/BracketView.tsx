@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Info } from 'lucide-react'
+import { Info, Share2, RotateCcw } from 'lucide-react'
 import {
   Bracket,
   Seed,
@@ -166,7 +166,8 @@ function FinalFourSection({
   state: ReturnType<typeof useBracketContext>
   ctx: PickContext
 }) {
-  const { getFinalFourMatchups, getChampionship, getWinner } = state
+  const { getFinalFourMatchups, getChampionship, getWinner, getShareUrl, clearPicks } = state
+  const [copied, setCopied] = useState(false)
   const ffMatchups = getFinalFourMatchups()
   const ff0 = ffMatchups[0] ?? { key: 'ff-0', top: undefined, bottom: undefined }
   const ff1 = ffMatchups[1] ?? { key: 'ff-1', top: undefined, bottom: undefined }
@@ -199,13 +200,35 @@ function FinalFourSection({
           <TeamRow team={championship.bottom} matchupKey="championship" ctx={ctx} />
         </div>
         {champion && (
-          <div className="mt-3 flex items-center justify-center gap-2 px-3 py-2 bg-brand-primary/20 border border-brand-primary rounded-lg animate-fade-in">
-            {champion.logo && <img src={champion.logo} alt="" className="w-6 h-6 object-contain" />}
-            <div className="text-center">
-              <div className="text-xs font-bold text-text-primary">{champion.name}</div>
-              <div className="text-[10px] text-text-tertiary">{champion.mascot}</div>
+          <>
+            <div className="mt-3 flex items-center justify-center gap-2 px-3 py-2 bg-brand-primary/20 border border-brand-primary rounded-lg animate-fade-in">
+              {champion.logo && <img src={champion.logo} alt="" className="w-6 h-6 object-contain" />}
+              <div className="text-center">
+                <div className="text-xs font-bold text-text-primary">{champion.name}</div>
+                <div className="text-[10px] text-text-tertiary">{champion.mascot}</div>
+              </div>
             </div>
-          </div>
+            <div className="mt-3 flex items-center justify-center gap-2">
+              <button
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(getShareUrl())
+                    setCopied(true)
+                    setTimeout(() => setCopied(false), 2000)
+                  } catch { prompt('Copy this link:', getShareUrl()) }
+                }}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-brand-primary text-on-brand-primary rounded-md hover:bg-brand-primary-hover transition-colors"
+              >
+                <Share2 size={14} /> {copied ? 'Link Copied!' : 'Share Bracket'}
+              </button>
+              <button
+                onClick={clearPicks}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-tertiary hover:text-status-error transition-colors rounded-md hover:bg-interactive-hover"
+              >
+                <RotateCcw size={14} /> Reset
+              </button>
+            </div>
+          </>
         )}
       </div>
     </div>
