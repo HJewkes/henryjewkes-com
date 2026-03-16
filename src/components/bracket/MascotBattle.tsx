@@ -226,7 +226,7 @@ function SwipeMascotCard({
                 className="absolute inset-0 bg-status-success/20 z-10 flex items-start justify-center pt-[50px] pointer-events-none"
               >
                 <span className="text-2xl font-heading font-bold text-status-success" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.9)' }}>
-                  Pick {currentMascot.mascotName}!
+                  Pick {currentMascot.mascotName}! →
                 </span>
               </motion.div>
             )}
@@ -235,10 +235,10 @@ function SwipeMascotCard({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-status-success/20 z-10 flex items-start justify-center pt-[50px] pointer-events-none"
+                className="absolute inset-0 bg-status-error/20 z-10 flex items-start justify-center pt-[50px] pointer-events-none"
               >
-                <span className="text-2xl font-heading font-bold text-status-success" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.9)' }}>
-                  Pick {otherMascot.mascotName}!
+                <span className="text-2xl font-heading font-bold text-status-error" style={{ textShadow: '0 0 20px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.9)' }}>
+                  ← Pick {otherMascot.mascotName}
                 </span>
               </motion.div>
             )}
@@ -277,7 +277,7 @@ function SwipeMascotCard({
 
           <div className="p-3 flex items-center justify-center gap-2 text-xs text-text-tertiary">
             <ChevronLeft size={14} />
-            <span>Swipe to pick a winner</span>
+            <span>← {otherMascot.mascotName} · {currentMascot.mascotName} →</span>
             <ChevronRight size={14} />
           </div>
         </div>
