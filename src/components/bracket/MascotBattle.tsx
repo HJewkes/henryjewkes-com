@@ -152,16 +152,20 @@ function SwipeMascotCard({
 }) {
   const [dragDir, setDragDir] = useState<'left' | 'right' | null>(null)
   const [showingTeam, setShowingTeam] = useState<'top' | 'bottom'>('top')
+  const [isDragging, setIsDragging] = useState(false)
 
   const currentTeam = showingTeam === 'top' ? matchup.top : matchup.bottom
   const currentMascot = showingTeam === 'top' ? matchup.topMascot : matchup.bottomMascot
   const otherTeam = showingTeam === 'top' ? matchup.bottom : matchup.top
   const otherMascot = showingTeam === 'top' ? matchup.bottomMascot : matchup.topMascot
 
+  const handleDragStart = () => setIsDragging(true)
+
   const handleDragEnd = (_: unknown, info: PanInfo) => {
     if (info.offset.x > 100) onPick(currentTeam)
     else if (info.offset.x < -100) onPick(otherTeam)
     setDragDir(null)
+    setTimeout(() => setIsDragging(false), 50)
   }
 
   const handleDrag = (_: unknown, info: PanInfo) => {
@@ -170,13 +174,29 @@ function SwipeMascotCard({
     else setDragDir(null)
   }
 
+  const handleTap = () => {
+    if (!isDragging) {
+      setShowingTeam((s) => (s === 'top' ? 'bottom' : 'top'))
+    }
+  }
+
   return (
     <div className="w-full max-w-sm mx-auto">
+      {/* Toggle to see other mascot — at top */}
+      <button
+        onClick={() => setShowingTeam((s) => (s === 'top' ? 'bottom' : 'top'))}
+        className="w-full mb-2 py-1.5 text-sm text-brand-primary font-medium text-center"
+      >
+        Tap card or here to see {otherMascot.mascotName} →
+      </button>
+
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
+        onDragStart={handleDragStart}
         onDrag={handleDrag}
         onDragEnd={handleDragEnd}
+        onTap={handleTap}
         className="touch-pan-y"
       >
         <div className="bg-surface-elevated rounded-xl border border-border overflow-hidden relative">
@@ -188,7 +208,9 @@ function SwipeMascotCard({
                 exit={{ opacity: 0 }}
                 className="absolute inset-0 bg-status-success/20 z-10 flex items-center justify-center pointer-events-none"
               >
-                <span className="text-3xl font-heading font-bold text-status-success">PICK!</span>
+                <span className="text-2xl font-heading font-bold text-status-success">
+                  Pick {currentMascot.mascotName}!
+                </span>
               </motion.div>
             )}
             {dragDir === 'left' && (
@@ -196,9 +218,11 @@ function SwipeMascotCard({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-status-error/20 z-10 flex items-center justify-center pointer-events-none"
+                className="absolute inset-0 bg-status-success/20 z-10 flex items-center justify-center pointer-events-none"
               >
-                <span className="text-3xl font-heading font-bold text-status-error">NOPE</span>
+                <span className="text-2xl font-heading font-bold text-status-success">
+                  Pick {otherMascot.mascotName}!
+                </span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -236,18 +260,11 @@ function SwipeMascotCard({
 
           <div className="p-3 flex items-center justify-center gap-2 text-xs text-text-tertiary">
             <ChevronLeft size={14} />
-            <span>Swipe right = pick, left = other</span>
+            <span>Swipe to pick a winner</span>
             <ChevronRight size={14} />
           </div>
         </div>
       </motion.div>
-
-      <button
-        onClick={() => setShowingTeam((s) => (s === 'top' ? 'bottom' : 'top'))}
-        className="w-full mt-3 py-2 text-sm text-text-tertiary hover:text-text-primary transition-colors text-center"
-      >
-        See {showingTeam === 'top' ? otherMascot.mascotName : currentMascot.mascotName} →
-      </button>
     </div>
   )
 }
