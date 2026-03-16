@@ -206,7 +206,7 @@ function SwipeMascotCard({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-status-success/20 z-10 flex items-center justify-center pointer-events-none"
+                className="absolute inset-0 bg-status-success/20 z-10 flex items-start justify-center pt-[50px] pointer-events-none"
               >
                 <span className="text-2xl font-heading font-bold text-status-success" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
                   Pick {currentMascot.mascotName}!
@@ -218,7 +218,7 @@ function SwipeMascotCard({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-status-success/20 z-10 flex items-center justify-center pointer-events-none"
+                className="absolute inset-0 bg-status-success/20 z-10 flex items-start justify-center pt-[50px] pointer-events-none"
               >
                 <span className="text-2xl font-heading font-bold text-status-success" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
                   Pick {otherMascot.mascotName}!
