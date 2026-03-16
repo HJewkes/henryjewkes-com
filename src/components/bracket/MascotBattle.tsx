@@ -159,6 +159,12 @@ function SwipeMascotCard({
   const otherTeam = showingTeam === 'top' ? matchup.bottom : matchup.top
   const otherMascot = showingTeam === 'top' ? matchup.bottomMascot : matchup.topMascot
 
+  // Preload both images so flip is instant
+  const topImg = mascotGroundedImages[matchup.top.name]
+  const bottomImg = mascotGroundedImages[matchup.bottom.name]
+  const preloadSrc = (p: string | undefined) =>
+    p?.startsWith('/') ? import.meta.env.BASE_URL + p.slice(1) : p
+
   const handleDragStart = () => setIsDragging(true)
 
   const handleDragEnd = (_: unknown, info: PanInfo) => {
@@ -182,6 +188,10 @@ function SwipeMascotCard({
 
   return (
     <div className="w-full max-w-sm mx-auto">
+      {/* Preload both mascot images */}
+      {topImg && <img src={preloadSrc(topImg)!} alt="" className="hidden" />}
+      {bottomImg && <img src={preloadSrc(bottomImg)!} alt="" className="hidden" />}
+
       {/* Toggle to see other mascot — at top */}
       <button
         onClick={() => setShowingTeam((s) => (s === 'top' ? 'bottom' : 'top'))}
