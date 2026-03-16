@@ -12,7 +12,7 @@ const tabs: { id: Mode; label: string; icon: React.ReactNode; description: strin
 ]
 
 export default function BracketPage() {
-  const [mode, setMode] = useState<Mode>('bracket')
+  const [mode, setMode] = useState<Mode>('mascot')
 
   return (
     <div className="min-h-screen bg-background-base">

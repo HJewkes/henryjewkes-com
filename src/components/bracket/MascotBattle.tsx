@@ -26,9 +26,10 @@ function MascotImage({ team, className = '', size = 'md' }: { team: Team; classN
   const s = sizes[size]
 
   if (grounded) {
+    const src = grounded.startsWith('/') ? import.meta.env.BASE_URL + grounded.slice(1) : grounded
     return (
       <div className={`${s.container} ${className}`}>
-        <img src={grounded} alt="" className="w-full h-full object-cover object-top rounded-xl" loading="lazy" />
+        <img src={src} alt="" className="w-full h-full object-cover object-top rounded-xl" loading="lazy" />
       </div>
     )
   }
