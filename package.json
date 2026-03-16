@@ -11,11 +11,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@g-loot/react-tournament-brackets": "^1.0.31-rc",
     "@titan-design/react-ui": "^0.1.1",
+    "framer-motion": "^12.36.0",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
+    "react-brackets": "^0.4.7",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.3.0"
+    "react-router-dom": "^7.3.0",
+    "react-tinder-card": "^1.6.4"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",

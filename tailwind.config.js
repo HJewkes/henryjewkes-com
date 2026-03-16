@@ -123,10 +123,15 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(-8px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        'slide-in-right': {
+          '0%': { opacity: '0', transform: 'translateX(100%)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in 250ms cubic-bezier(0.22, 1, 0.36, 1)',
         'slide-down': 'slide-down 250ms cubic-bezier(0.22, 1, 0.36, 1)',
+        'slide-in-right': 'slide-in-right 300ms cubic-bezier(0.22, 1, 0.36, 1)',
       },
     },
   },

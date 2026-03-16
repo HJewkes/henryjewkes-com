@@ -1,4 +1,5 @@
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Github, Linkedin, Mail, Trophy } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -10,6 +11,15 @@ export default function Home() {
         <p className="font-body text-xl text-text-secondary mb-8">
           Software Engineer
         </p>
+
+        <Link
+          to="/bracket"
+          className="inline-flex items-center gap-2 px-6 py-3 mb-8 bg-brand-primary text-on-brand-primary font-bold rounded-lg hover:bg-brand-primary-hover transition-colors duration-normal shadow-glow-primary"
+        >
+          <Trophy size={20} />
+          March Madness 2026 Bracket
+        </Link>
+
         <div className="flex items-center justify-center gap-6">
           <a
             href="https://github.com/HJewkes"
@@ -21,7 +31,7 @@ export default function Home() {
             <Github size={24} />
           </a>
           <a
-            href="https://linkedin.com/in/henryjewkes"
+            href="https://www.linkedin.com/in/hjewkes/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-text-tertiary hover:text-brand-primary transition-colors duration-normal"
@@ -30,7 +40,7 @@ export default function Home() {
             <Linkedin size={24} />
           </a>
           <a
-            href="mailto:hello@henryjewkes.com"
+            href="mailto:hjewkes@gmail.com"
             className="text-text-tertiary hover:text-brand-primary transition-colors duration-normal"
             aria-label="Email"
           >
