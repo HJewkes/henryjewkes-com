@@ -8,7 +8,7 @@ import {
   type IRenderSeedProps,
   type IRoundProps,
 } from 'react-brackets'
-import { useBracketState } from '../../hooks/useBracketState'
+import { useBracketContext } from '../../hooks/useBracketState'
 import type { Team } from '../../data/bracket2026'
 import { TeamDetailPanel } from './TeamDetailPanel'
 
@@ -95,7 +95,7 @@ function CustomSeed({ seed }: IRenderSeedProps) {
 
 function buildRounds(
   regionKey: string,
-  state: ReturnType<typeof useBracketState>,
+  state: ReturnType<typeof useBracketContext>,
   ctx: PickContext,
 ): IRoundProps[] {
   const { getMatchups, getRound2Matchups, getSweet16Matchups, getElite8Matchup } = state
@@ -138,7 +138,7 @@ function RegionBracket({
 }: {
   regionKey: string
   label: string
-  state: ReturnType<typeof useBracketState>
+  state: ReturnType<typeof useBracketContext>
   ctx: PickContext
 }) {
   const rounds = buildRounds(regionKey, state, ctx)
@@ -163,7 +163,7 @@ function FinalFourSection({
   state,
   ctx,
 }: {
-  state: ReturnType<typeof useBracketState>
+  state: ReturnType<typeof useBracketContext>
   ctx: PickContext
 }) {
   const { getFinalFourMatchups, getChampionship, getWinner } = state
@@ -232,7 +232,7 @@ const ALL_TABS: TabDef[] = [
 ]
 
 export function BracketView() {
-  const state = useBracketState()
+  const state = useBracketContext()
   const [inspectedTeam, setInspectedTeam] = useState<Team | null>(null)
   const { makePick, getWinner } = state
   const windowWidth = useWindowWidth()

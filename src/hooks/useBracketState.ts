@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, createContext, useContext } from 'react'
 import { projected2026Bracket, type Team, type BracketData } from '../data/bracket2026'
 
 export interface BracketPick {
@@ -184,4 +184,16 @@ export function useBracketState() {
     totalGames,
     progress: totalPicks / totalGames,
   }
+}
+
+export type BracketStateType = ReturnType<typeof useBracketState>
+
+const BracketContext = createContext<BracketStateType | null>(null)
+
+export const BracketProvider = BracketContext.Provider
+
+export function useBracketContext(): BracketStateType {
+  const ctx = useContext(BracketContext)
+  if (!ctx) throw new Error('useBracketContext must be used within BracketProvider')
+  return ctx
 }

@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence, type PanInfo } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Sparkles, RotateCcw, Share2 } from 'lucide-react'
-import { useBracketState } from '../../hooks/useBracketState'
+import { useBracketContext } from '../../hooks/useBracketState'
 import { mascotProfiles, type MascotProfile } from '../../data/mascots'
 import { mascotGroundedImages } from '../../data/mascotGrounded'
 import type { Team } from '../../data/bracket2026'
@@ -266,8 +266,8 @@ function toMascotMatchup(m: { key: string; top: Team | undefined; bottom: Team |
 }
 
 export function MascotBattle() {
-  const state = useBracketState()
-  const { bracket, picks, makePick, totalPicks, getShareUrl, clearPicks,
+  const state = useBracketContext()
+  const { bracket, picks, makePick, getShareUrl, clearPicks,
     getMatchups, getRound2Matchups, getSweet16Matchups, getElite8Matchup,
     getFinalFourMatchups, getChampionship } = state
   const [copied, setCopied] = useState(false)
@@ -441,9 +441,6 @@ export function MascotBattle() {
             className="h-full bg-brand-primary rounded-full transition-all duration-normal"
             style={{ width: `${((completedInRound) / totalInRound) * 100}%` }}
           />
-        </div>
-        <div className="text-[10px] text-text-tertiary mt-1">
-          {totalPicks} of 63 total picks made
         </div>
       </div>
 
