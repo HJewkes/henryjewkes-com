@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Share2, RotateCcw, Info } from 'lucide-react'
+import { Info } from 'lucide-react'
 import {
   Bracket,
   Seed,
@@ -234,8 +234,7 @@ const ALL_TABS: TabDef[] = [
 export function BracketView() {
   const state = useBracketState()
   const [inspectedTeam, setInspectedTeam] = useState<Team | null>(null)
-  const [copied, setCopied] = useState(false)
-  const { makePick, getWinner, totalPicks, totalGames, getShareUrl, clearPicks } = state
+  const { makePick, getWinner } = state
   const windowWidth = useWindowWidth()
   const isMobile = windowWidth < 600
 
@@ -261,50 +260,11 @@ export function BracketView() {
     mobileBreakpoint: 0,
   }
 
-  const handleShare = async () => {
-    const url = getShareUrl()
-    try {
-      await navigator.clipboard.writeText(url)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      prompt('Copy this link:', url)
-    }
-  }
-
-  const isComplete = totalPicks === totalGames
-
   const regionLabel = (key: string) =>
     `${state.bracket.regions[key]?.name} — ${state.bracket.regions[key]?.city}`
 
   return (
     <div className="relative">
-      {/* Toolbar */}
-      <div className="sticky top-[57px] z-40 bg-surface-base/80 backdrop-blur-md border-b border-border px-4 py-2 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="text-sm text-text-secondary">
-            <span className="font-bold text-text-primary">{totalPicks}</span>
-            <span className="text-text-tertiary">/{totalGames} picks</span>
-          </div>
-          <div className="w-32 h-1.5 bg-surface-elevated rounded-full overflow-hidden">
-            <div
-              className="h-full bg-brand-primary rounded-full transition-all duration-normal"
-              style={{ width: `${(totalPicks / totalGames) * 100}%` }}
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <button onClick={clearPicks} className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-text-tertiary hover:text-status-error transition-colors rounded-md hover:bg-interactive-hover">
-            <RotateCcw size={14} /> Reset
-          </button>
-          {isComplete && (
-            <button onClick={handleShare} className="flex items-center gap-1.5 px-3 py-1.5 text-xs bg-brand-primary text-on-brand-primary rounded-md hover:bg-brand-primary-hover transition-colors">
-              <Share2 size={14} /> {copied ? 'Link Copied!' : 'Share'}
-            </button>
-          )}
-        </div>
-      </div>
-
       {/* Tab bar */}
       <div className="px-4 pt-4">
         <div className="flex items-center gap-1 border-b border-border mb-4 overflow-x-auto">

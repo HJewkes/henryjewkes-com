@@ -451,13 +451,6 @@ export function MascotBattle() {
         <SwipeMascotCard matchup={currentMatchup} onPick={handlePick} />
       ) : (
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-4">
-            <div className="flex items-center justify-center gap-6">
-              <MascotImage team={currentMatchup.top} size="sm" />
-              <span className="font-heading text-2xl font-bold text-text-tertiary">VS</span>
-              <MascotImage team={currentMatchup.bottom} size="sm" />
-            </div>
-          </div>
           <div className="flex gap-4 items-stretch">
             <MascotCard
               team={currentMatchup.top}
