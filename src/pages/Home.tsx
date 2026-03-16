@@ -9,7 +9,7 @@ export default function Home() {
           Henry Jewkes
         </h1>
         <p className="font-body text-xl text-text-secondary mb-8">
-          Software Engineer
+          Software Architect
         </p>
 
         <Link
