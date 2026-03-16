@@ -254,17 +254,39 @@ const ALL_TABS: TabDef[] = [
   { id: 'final-four', label: 'Final Four' },
 ]
 
+function findFirstIncompleteTab(picks: Record<string, any>, isMobile: boolean): TabId {
+  const regionKeys = ['south', 'midwest', 'west', 'east'] as const
+  const regionHasOpenPicks = (key: string) => {
+    for (let i = 0; i < 8; i++) if (!picks[`${key}-r1-${i}`]) return true
+    for (let i = 0; i < 4; i++) if (!picks[`${key}-r2-${i}`]) return true
+    for (let i = 0; i < 2; i++) if (!picks[`${key}-s16-${i}`]) return true
+    if (!picks[`${key}-e8`]) return true
+    return false
+  }
+
+  if (isMobile) {
+    for (const key of regionKeys) {
+      if (regionHasOpenPicks(key)) return key as TabId
+    }
+    return 'final-four'
+  }
+
+  if (regionHasOpenPicks('south') || regionHasOpenPicks('midwest')) return 'south-midwest'
+  if (regionHasOpenPicks('west') || regionHasOpenPicks('east')) return 'west-east'
+  return 'final-four'
+}
+
 export function BracketView() {
   const state = useBracketContext()
   const [inspectedTeam, setInspectedTeam] = useState<Team | null>(null)
-  const { makePick, getWinner } = state
+  const { makePick, getWinner, picks } = state
   const windowWidth = useWindowWidth()
   const isMobile = windowWidth < 600
 
-  const [activeTab, setActiveTab] = useState<TabId>(isMobile ? 'south' : 'south-midwest')
+  const [activeTab, setActiveTab] = useState<TabId>(() => findFirstIncompleteTab(picks, isMobile))
 
   useEffect(() => {
-    setActiveTab(isMobile ? 'south' : 'south-midwest')
+    setActiveTab(findFirstIncompleteTab(picks, isMobile))
   }, [isMobile])
 
   const tabs = useMemo(
