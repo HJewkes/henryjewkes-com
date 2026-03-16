@@ -420,7 +420,7 @@ export function MascotBattle() {
           {mascotProfiles[champion.name]?.mascotName ?? champion.name} Wins!
         </h2>
         <p className="text-text-secondary mb-6">
-          The {champion.name} {champion.mascot} are your Mascot Battle champions!
+          The {champion.name} {champion.mascot} are your Mascot Madness champions!
         </p>
         <div className="flex gap-3">
           <button onClick={clearPicks} className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-status-error border border-border rounded-lg hover:bg-interactive-hover transition-colors">
@@ -453,7 +453,7 @@ export function MascotBattle() {
       <div className="max-w-3xl mx-auto mb-6 text-center">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Sparkles size={18} className="text-brand-primary" />
-          <h2 className="font-heading text-lg font-bold text-text-primary">Mascot Battle!</h2>
+          <h2 className="font-heading text-lg font-bold text-text-primary">Mascot Madness!</h2>
           <Sparkles size={18} className="text-brand-primary" />
         </div>
         <p className="text-sm text-text-secondary mb-3">

@@ -8,7 +8,7 @@ type Mode = 'bracket' | 'mascot'
 
 const tabs: { id: Mode; label: string; icon: React.ReactNode }[] = [
   { id: 'bracket', label: 'Bracket', icon: <Trophy size={18} /> },
-  { id: 'mascot', label: 'Mascot Battle', icon: <Sparkles size={18} /> },
+  { id: 'mascot', label: 'Mascot Madness', icon: <Sparkles size={18} /> },
 ]
 
 export default function BracketPage() {
