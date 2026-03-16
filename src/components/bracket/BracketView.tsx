@@ -261,7 +261,7 @@ export function BracketView() {
   }
 
   const regionLabel = (key: string) =>
-    `${state.bracket.regions[key]?.name} — ${state.bracket.regions[key]?.city}`
+    state.bracket.regions[key]?.name ?? key
 
   return (
     <div className="relative">
