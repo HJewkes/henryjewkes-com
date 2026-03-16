@@ -17,7 +17,15 @@ interface MascotMatchup {
 
 function MascotImage({ team, className = '', size = 'md' }: { team: Team; className?: string; size?: 'sm' | 'md' | 'lg' }) {
   const grounded = mascotGroundedImages[team.name]
+  const src = grounded?.startsWith('/') ? import.meta.env.BASE_URL + grounded.slice(1) : grounded
   const [loaded, setLoaded] = useState(false)
+  const [currentSrc, setCurrentSrc] = useState(src)
+
+  // Reset loaded state when team changes
+  if (src !== currentSrc) {
+    setCurrentSrc(src)
+    setLoaded(false)
+  }
 
   const sizes = {
     sm: { container: 'w-14 h-14' },
@@ -26,8 +34,7 @@ function MascotImage({ team, className = '', size = 'md' }: { team: Team; classN
   }
   const s = sizes[size]
 
-  if (grounded) {
-    const src = grounded.startsWith('/') ? import.meta.env.BASE_URL + grounded.slice(1) : grounded
+  if (src) {
     return (
       <div
         className={`${s.container} rounded-xl overflow-hidden ${className}`}
